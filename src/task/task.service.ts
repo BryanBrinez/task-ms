@@ -56,6 +56,31 @@ export class TaskService extends PrismaClient implements OnModuleInit {
 
   }
 
+
+
+  async findByIdProject(projectId: string) {
+    console.log('Searching for projects with ownerId:', projectId, typeof projectId);
+
+
+    try {
+      const task = await this.task.findMany({
+        where: {
+          projectId: projectId
+        }
+      });
+
+
+      if (task.length === 0) {
+        return []
+      }
+
+      return task;
+
+    } catch (error) {
+      console.error('Error while fetching projects:', error);
+      throw new RpcException({ message: 'Algo ha fallado, comunicate con tu administrador', status: HttpStatus.BAD_REQUEST });
+    }
+  }
   
   async findAll(paginationDto: PaginationDto) {
 
@@ -81,8 +106,23 @@ export class TaskService extends PrismaClient implements OnModuleInit {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
+  async findOne(id: string) {
+
+
+    try {
+      const task = await this.task.findUnique({
+        where: {
+          id: id
+        }
+      });
+
+
+      return task;
+
+    } catch (error) {
+      console.error('Error while fetching projects:', error);
+      throw new RpcException({ message: 'Algo ha fallado, comunicate con tu administrador', status: HttpStatus.BAD_REQUEST });
+    }
   }
 
   update(id: number, updateTaskDto: UpdateTaskDto) {

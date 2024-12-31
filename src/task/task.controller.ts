@@ -20,9 +20,17 @@ export class TaskController {
   }
 
   @MessagePattern({ cmd: 'find_one_task' })
-  findOne(@Payload() id: number) {
+  findOne(@Payload() id: string) {
     return this.taskService.findOne(id);
   }
+
+
+  @MessagePattern({ cmd: 'find_by_project_id' })
+  findByIdProject(@Payload() projectId: string) {
+    return this.taskService.findByIdProject(projectId);
+  }
+
+
 
   // @MessagePattern({ cmd: 'update_task' })
   // update(@Payload() updateTaskDto: UpdateTaskDto) {
