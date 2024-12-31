@@ -27,5 +27,6 @@ model Task {
   status    TaskStatus
   userId    String
   projectId String
+  limit_date DateTime?
 }
 

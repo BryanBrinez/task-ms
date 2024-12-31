@@ -1,4 +1,4 @@
-import { IsEnum, IsString } from 'class-validator';
+import { IsDateString, IsEnum, IsString } from 'class-validator';
 
 export enum TaskStatus {
   PENDING = 'PENDING',
@@ -18,4 +18,8 @@ export class CreateTaskDto {
 
   @IsString()
   projectId: string;
+
+  @IsDateString()
+  limit_date: string;
+
 }
