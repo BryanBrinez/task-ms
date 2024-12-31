@@ -32,10 +32,10 @@ export class TaskController {
 
 
 
-  // @MessagePattern({ cmd: 'update_task' })
-  // update(@Payload() updateTaskDto: UpdateTaskDto) {
-  //   return this.taskService.update(updateTaskDto.id, updateTaskDto);
-  // }
+  @MessagePattern({ cmd: 'update_task' })
+  update(@Payload() updateTaskDto: UpdateTaskDto) {
+    return this.taskService.update(updateTaskDto.id, updateTaskDto);
+  }
 
   @MessagePattern({ cmd: 'remove_task' })
   remove(@Payload() id: number) {

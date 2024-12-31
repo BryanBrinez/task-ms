@@ -125,9 +125,26 @@ export class TaskService extends PrismaClient implements OnModuleInit {
     }
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+ async update(id: string, updateTaskDto: UpdateTaskDto) {
+    const { id: __, ...data } = updateTaskDto
+
+
+    try {
+      await this.findOne(id)
+
+    } catch (error) {
+      throw new RpcException({ message: `User with id ${id} not found`, status: HttpStatus.BAD_REQUEST })
+    }
+
+    return this.task.update({
+      where: { id },
+      data: data
+
+    })
+
   }
+
+
 
   remove(id: number) {
     return `This action removes a #${id} task`;
